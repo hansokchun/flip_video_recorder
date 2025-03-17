@@ -19,10 +19,10 @@ if video.isOpened():
         if not valid:
             break
 
-        display = img.copy() 
-
         if flip:
-            display= cv.flip(display, 1) 
+            img= cv.flip(img, 1)  
+
+        display = img.copy()  
 
         if recording:
             center = (50, 50)
@@ -31,7 +31,7 @@ if video.isOpened():
         cv.imshow('Video Player', display)
 
         key = cv.waitKey(wait_msec)
-        if key == 27: 
+        if key == 27:  
             break
         elif key == 32:  
             if recording:
@@ -43,11 +43,11 @@ if video.isOpened():
                 is_color = (img.ndim > 2) and (img.shape[2] > 1)
                 target.open(target_file, cv.VideoWriter_fourcc(*target_fourcc), fps, (w, h), is_color)
                 recording = True
-        elif key == ord('f'): 
+        elif key == ord('f'):  
             flip = not flip
 
         if recording:
-            target.write(display) 
+            target.write(img)  
 
     if recording:
         target.release()
